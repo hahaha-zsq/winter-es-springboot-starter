@@ -1,0 +1,25 @@
+{
+  "groups": [
+    {
+      "name": "es.cluster",
+      "type": "com.zsq.winter.es.entity.EsConfigProperties",
+      "sourceType": "com.zsq.winter.es.entity.EsConfigProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "es.cluster.es-configs",
+      "type": "java.util.List<com.zsq.winter.es.entity.EsConfigProperties$EsClusterConfig>",
+      "description": "es集群配置",
+      "sourceType": "com.zsq.winter.es.entity.EsConfigProperties"
+    },
+    {
+      "name": "es.cluster.is-print",
+      "type": "java.lang.Boolean",
+      "description": "是否打印启动Banner",
+      "sourceType": "com.zsq.winter.es.entity.EsConfigProperties",
+      "defaultValue": true
+    }
+  ],
+  "hints": []
+}
