@@ -2,7 +2,6 @@ package com.zsq.winter.es.client;
 
 import com.zsq.winter.es.entity.EsConfigProperties;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpHost;
 import org.apache.http.auth.AuthScope;
 import org.apache.http.auth.UsernamePasswordCredentials;
@@ -101,7 +100,7 @@ public class EsRestClient {
 
         for (String host : hosts) {
             String trimmedHost = host.trim();
-            if (StringUtils.isNotBlank(trimmedHost)) {
+            if (!ObjectUtils.isEmpty(trimmedHost)) {
                 HttpHost httpHost = HttpHost.create("http://" + trimmedHost);
                 httpHostList.add(httpHost);
             }
@@ -115,8 +114,8 @@ public class EsRestClient {
 
         // 配置认证信息
         CredentialsProvider credentialsProvider = new BasicCredentialsProvider();
-        if (StringUtils.isNotBlank(esClusterConfig.getUsername()) &&
-                StringUtils.isNotBlank(esClusterConfig.getPassword())) {
+        if (!ObjectUtils.isEmpty(esClusterConfig.getUsername()) &&
+                !ObjectUtils.isEmpty(esClusterConfig.getPassword())) {
             credentialsProvider.setCredentials(AuthScope.ANY,
                     new UsernamePasswordCredentials(esClusterConfig.getUsername(), esClusterConfig.getPassword()));
         }

@@ -19,7 +19,7 @@ import org.springframework.context.annotation.DependsOn;
  */
 @Configuration
 @ConditionalOnClass(RestHighLevelClient.class)
-@ConditionalOnProperty(prefix = "es.cluster", name = "es-configs")
+@ConditionalOnProperty(prefix = "winter-es", name = "es-configs")
 @EnableConfigurationProperties(EsConfigProperties.class)
 public class ElasticsearchAutoConfiguration {
 

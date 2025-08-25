@@ -13,7 +13,7 @@ import java.util.List;
  * @author dadandiaoming
  */
 @Data
-@ConfigurationProperties(prefix = "es.cluster")
+@ConfigurationProperties(prefix = "winter-es")
 public class EsConfigProperties {
     /**
      * es集群配置

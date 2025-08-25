@@ -1,20 +1,20 @@
 {
   "groups": [
     {
-      "name": "es.cluster",
+      "name": "winter-es",
       "type": "com.zsq.winter.es.entity.EsConfigProperties",
       "sourceType": "com.zsq.winter.es.entity.EsConfigProperties"
     }
   ],
   "properties": [
     {
-      "name": "es.cluster.es-configs",
+      "name": "winter-es.es-configs",
       "type": "java.util.List<com.zsq.winter.es.entity.EsConfigProperties$EsClusterConfig>",
       "description": "es集群配置",
       "sourceType": "com.zsq.winter.es.entity.EsConfigProperties"
     },
     {
-      "name": "es.cluster.is-print",
+      "name": "winter-es.is-print",
       "type": "java.lang.Boolean",
       "description": "是否打印启动Banner",
       "sourceType": "com.zsq.winter.es.entity.EsConfigProperties",
