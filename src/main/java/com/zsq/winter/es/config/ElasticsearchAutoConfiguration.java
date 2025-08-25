@@ -1,16 +1,13 @@
 package com.zsq.winter.es.config;
 
 import com.zsq.winter.es.client.EsRestClient;
+import com.zsq.winter.es.entity.BannerCreator;
 import com.zsq.winter.es.entity.EsConfigProperties;
 import com.zsq.winter.es.service.EsTemplate;
-import org.elasticsearch.client.RestHighLevelClient;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.DependsOn;
 
 /**
  * Elasticsearch 自动配置类
@@ -18,8 +15,6 @@ import org.springframework.context.annotation.DependsOn;
  * @author dadandiaoming
  */
 @Configuration
-@ConditionalOnClass(RestHighLevelClient.class)
-@ConditionalOnProperty(prefix = "winter-es", name = "es-configs")
 @EnableConfigurationProperties(EsConfigProperties.class)
 public class ElasticsearchAutoConfiguration {
 
@@ -42,9 +37,23 @@ public class ElasticsearchAutoConfiguration {
      * @return ES操作模板实例
      */
     @Bean
-    @DependsOn(value="esRestClient")
     @ConditionalOnMissingBean
     public EsTemplate esTemplate(EsRestClient esRestClient) {
         return new EsTemplate(esRestClient);
     }
+
+    /**
+     * 创建启动Banner创建器Bean
+     *
+     * <p>用于在应用启动时输出定制的banner</p>
+     *
+     * @param esConfigProperties 包含es相关的配置属性
+     * @return 初始化后的BannerCreator实例
+     * @see BannerCreator
+     */
+    @Bean("esBanner")
+    public BannerCreator bannerCreator(EsConfigProperties esConfigProperties) {
+        return new BannerCreator(esConfigProperties);
+    }
+
 } 
