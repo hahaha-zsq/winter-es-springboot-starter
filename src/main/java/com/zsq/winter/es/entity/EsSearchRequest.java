@@ -53,7 +53,7 @@ public class EsSearchRequest {
     /**
      * 排序类型
      */
-    private SortOrder sortOrder;
+    private SortOrder sortOrder = SortOrder.DESC;
 
     /**
      * 高亮builder

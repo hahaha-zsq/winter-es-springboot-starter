@@ -358,7 +358,6 @@ public class EsTemplate {
               /*SearchRequest是Elasticsearch中的一个Java API，用于向Elasticsearch发送搜索请求。
             它允许用户构建一个搜索请求，指定要搜索的索引、类型、查询条件、排序方式、高亮显示、聚合操作等，并发送给Elasticsearch进行搜索*/
             SearchRequest searchRequest = buildSearchRequest(esIndexInfo, esSearchRequest, searchSourceBuilder);
-
             RestHighLevelClient client = esRestClient.getClient(esIndexInfo.getClusterName());
             return client.search(searchRequest, COMMON_OPTIONS);
         } catch (Exception e) {
@@ -402,12 +401,11 @@ public class EsTemplate {
 
         // 设置排序
         if (!ObjectUtils.isEmpty(esSearchRequest.getSortName())) {
-            searchSourceBuilder.sort(esSearchRequest.getSortName());
+            searchSourceBuilder.sort(esSearchRequest.getSortName(), esSearchRequest.getSortOrder());
+        }else{
+            // 默认按评分排序
+            searchSourceBuilder.sort(new ScoreSortBuilder().order(SortOrder.DESC));
         }
-
-        // 默认按评分排序
-        searchSourceBuilder.sort(new ScoreSortBuilder().order(SortOrder.DESC));
-
         return searchSourceBuilder;
     }
 
@@ -424,7 +422,7 @@ public class EsTemplate {
         SearchRequest searchRequest = new SearchRequest()
                 .indices(esIndexInfo.getIndexName())
                 .searchType(SearchType.DEFAULT)
-                .source(searchSourceBuilder); // // source(SearchSourceBuilder source)：设置搜索的源，可以包括查询条件、排序规则、分页设置等。
+                .source(searchSourceBuilder); // // source(SearchSourceBuilder source)：设置搜索的源，可以包括查询条件、排序规则、分页设置等，对应着dsl最外层的大括号。
 
         // 设置滚动搜索
         if (esSearchRequest.getNeedScroll() != null && esSearchRequest.getNeedScroll()) {
